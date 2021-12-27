@@ -1,3 +1,17 @@
+#ติดตั้ง nginx-controller แบบเร็วๆ ด้วย vagrant
+1. vagrant up
+2. รอจนกว่า vm ทั้งหมดจะ provision เสร็จ
+3. vagrant ssh
+
+#note
+ทดสอบกับ vagrant_2.2.19_x86_64.msi และ VirtualBox-6.1.30-148432-Win.exe บน Windows 10
+
+#credit
+script ติดตั้งดัดแปลงมาจาก https://docs.nginx.com/nginx-controller/admin-guides/install/install-nginx-controller/
+
+###############################################################################
+
+#ติดตั้ง nginx-controller แบบ manual
 
 export CTR_SMTP_HOST=localhost && export CTR_SMTP_PORT=25 && export CTR_SMTP_AUTH=false && export CTR_SMTP_TLS=false && export CTR_SMTP_FROM=unixman11@gmail.com && export CTR_FQDN=controller.example.com && export CTR_FIRSTNAME=Example && export CTR_LASTNAME=NaJa && export CTR_EMAIL=admin@example.com && export CTR_PASSWORD=P@ssw0rd
 
@@ -5,94 +19,3 @@ tar xzf controller-installer-3.18.2.tar.gz
 cd controller-installer
 ./helper.sh prereqs
 ./install.sh --tsdb-volume-type local --self-signed-cert --non-interactive --accept-license
-
-###
-NGINX Controller install script, version 3.18.2
-Usage: ./install.sh [flags]
-Required: These options will be requested by the installer if not set and --non-interactive is not used
-   -d | --configdb-host                Config DB host
-   -k | --configdb-port                Config DB port
-   -r | --configdb-user                Config DB user
-   -s | --configdb-pass                Config DB password
-   --configdb-enable-ssl               Require a SSL connection to the Config DB
-   --configdb-ca                       Path to the CA certificate file to use for SSL connection to the Config DB
-   --configdb-client-cert              Path to the client certificate file to use for SSL connection to the Config DB
-   --configdb-client-key               Path to the key file to use for SSL connection to the Config DB
-   --configdb-volume-type              Config DB volume type (local, nfs, aws)
-   --configdb-aws-volume-id            AWS Volume ID (required when configdb-volume-type is 'aws')
-   --configdb-nfs-host                 Config DB NFS host (required when config-volume-type is 'nfs')
-   --configdb-nfs-path                 Config DB NFS path (required when config-volume-type is 'nfs')
-   -m | --smtp-host                    SMTP host
-   -x | --smtp-port                    SMTP port
-   -g | --smtp-use-tls                 Specify if SMTP should use TLS (true or false)
-   -b | --smtp-authentication          Specify if SMTP server requires username and password (true or false)
-   -l | --smtp-user                    SMTP user (required when smtp-authentication is enabled)
-   -q | --smtp-password                SMTP password (required when smtp-authentication is enabled)
-   -j | --noreply-address              Specify the email to show in the 'FROM' field
-   -e | --admin-email                  Admin user email
-   -p | --admin-password               Admin user password
-   -f | --fqdn                         FQDN (domain) for NGINX Controller web frontend, for example, controller.example.com
-   -t | --admin-firstname              Admin user first name
-   -u | --admin-lastname               Admin user last name
-   --tsdb-volume-type                  Time series database volume type (local, nfs, aws)
-   --tsdb-aws-volume-id                AWS Volume ID (required when tsdb-volume-type is 'aws')
-   --tsdb-nfs-host                     Time series database NFS host (required when tsdb-volume-type is 'nfs')
-   --tsdb-nfs-path                     Time series database NFS path (required when tsdb-volume-type is 'nfs')
-Optional: These arguments are optional specifications
-   --apigw-cert                        SSL/TLS cert file path, cannot be used together with --self-signed-cert
-   --apigw-key                         SSL/TLS key file path, cannot be used together with --self-signed-cert
-   -c | --self-signed-cert             Specify if the installation process should create a self signed cert for SSL/TLS
-   --non-interactive                   Do not ask for any user input
-   -w | --auto-install-docker          Specify if Docker CE should be installed if missing, without confirmation
-   -i | --passive                      Install as a cold standby, not running database migrations and not starting any services
-   -y | --accept-license               Automatically accept EULA
-   -h | --help
-These options can be set as environmental variables
-   CTR_APIGW_CERT                      SSL/TLS cert file path, cannot be used together with --self-signed-cert
-   CTR_APIGW_KEY                       SSL/TLS key file path, cannot be used together with --self-signed-cert
-   CTR_CONFIGDB_HOST                   Config DB host
-   CTR_CONFIGDB_PORT                   Config DB port
-   CTR_CONFIGDB_USER                   Config DB user
-   CTR_CONFIGDB_PASS                   Config DB password
-   CTR_CONFIGDB_ENABLE_SSL             Require a SSL connection to the database
-   CTR_CONFIGDB_CA                     Path to the CA certificate file to use for SSL connection to the database
-   CTR_CONFIGDB_CLIENT_CERT            Path to the client certificate file to use for SSL connection to the database
-   CTR_CONFIGDB_CLIENT_KEY             Path to the key file to use for SSL connection to the database
-   CTR_CONFIGDB_VOL_TYPE               Config DB volume type (local, nfs, aws)
-   CTR_CONFIGDB_AWS_ID                 AWS Volume ID (required when CTR_CONFIGDB_VOL_TYPE is 'aws')
-   CTR_CONFIGDB_NFS_HOST               Config DB NFS host (required when CTR_CONFIGDB_VOL_TYPE is 'nfs')
-   CTR_CONFIGDB_NFS_PATH               Config DB NFS path (required when CTR_CONFIGDB_VOL_TYPE is 'nfs')
-   CTR_SMTP_HOST                       SMTP host
-   CTR_SMTP_PORT                       SMTP port
-   CTR_SMTP_TLS                        Specify if SMTP should use TLS (true or false)
-   CTR_SMTP_AUTH                       Specify if SMTP server requires username and password (true or false)
-   CTR_SMTP_USER                       SMTP user (required when CTR_SMTP_AUTH is true)
-   CTR_SMTP_PASS                       SMTP password (required when CTR_SMTP_AUTH is true)
-   CTR_SMTP_FROM                       Specify the email to show in the 'FROM' field
-   CTR_EMAIL                           Admin user email
-   CTR_PASSWORD                        Admin user password
-   CTR_FIRSTNAME                       Admin user first name
-   CTR_LASTNAME                        Admin user last name
-   CTR_FQDN                            FQDN (domain) for NGINX Controller web frontend, for example, controller.example.com
-   CTR_TSDB_VOL_TYPE                   Time series database volume type (local, nfs, aws)
-   CTR_TSDB_AWS_ID                     AWS Volume ID (required when CTR_TSDB_VOL_TYPE is 'aws')
-   CTR_TSDB_NFS_HOST                   Time series database NFS host (required when CTR_TSDB_VOL_TYPE is 'nfs')
-   CTR_TSDB_NFS_PATH                   Time series database NFS path (required when CTR_TSDB_VOL_TYPE is 'nfs')
-   
-   #
-   Missing the following required parameters: 
-	Time series database volume type,
-	SMTP host,
-	SMTP port,
-	SMTP authentication requirement,
-	SMTP TLS requirement,
-	SMTP From email,
-	FQDN,
-	Admin user first name,
-	Admin user last name,
-	Admin user email,
-	Admin user password,
-	SSL/TLS server certificate,
-	SSL/TLS server certificate key,
-
-export CTR_SMTP_HOST=localhost && export CTR_SMTP_PORT=25 && export CTR_SMTP_AUTH=false && export CTR_SMTP_TLS=false && export CTR_SMTP_FROM=unixman11@gmail.com && export CTR_FQDN=controller.example.com && export CTR_FIRSTNAME=Example && export CTR_LASTNAME=NaJa && export CTR_EMAIL=admin@example && export CTR_PASSWORD=P@ssw0rd
