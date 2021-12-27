@@ -13,7 +13,6 @@ Vagrant.configure("2") do |config|
     vm1.vm.box = "ubuntu/bionic64"
     vm1.vm.hostname = "nginx-controller"
     vm1.vm.network "private_network", ip: "192.168.55.113"
-    #vm1.vm.provision "shell", path: "install-K8s.sh"
     vm1.vm.provision "file", source: "controller-installer-3.18.2.tar.gz", destination: "~/controller-installer-3.18.2.tar.gz"
     vm1.disksize.size = '255GB'
     vm1.vm.provision "shell", inline: $script
@@ -21,8 +20,6 @@ Vagrant.configure("2") do |config|
       vb.name = "nginx-controller"
       vb.cpus = 8
       vb.memory = 8192
-      #vb.customize ["modifyvm", :id, "--nic1", "natnetwork"]
-      #vb.customize ["modifyvm", :id, "--nat-network1", "NatNetwork"]
     end
   end
 
