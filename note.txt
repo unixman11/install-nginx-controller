@@ -1,4 +1,5 @@
 #ติดตั้ง nginx-controller แบบเร็วๆ ด้วย vagrant
+*** ติดตั้ง plugin: vagrant plugin install vagrant-disksize
 1. vagrant up
 2. รอจนกว่า vm ทั้งหมดจะ provision เสร็จ
 3. vagrant ssh
